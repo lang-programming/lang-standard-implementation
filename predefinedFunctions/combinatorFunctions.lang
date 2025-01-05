@@ -1172,3 +1172,16 @@ function combinator combXNF($a{callable}, $b{callable}, $c, $d) {
 
     return $retA($c)
 }
+
+## Combinator execution: (x -> f(x(x)))(x -> f(x(x)))
+function combinator combY($f{callable}) {
+    function combinator combY_anon($f{callable}, $x{callable}) {
+        function combinator combY_anon_inner($f{callable}, $x{callable}, &args...) {
+            return $f($x($x))(&args...)
+        }
+
+        return fp.combY_anon_inner($f, $x)
+    }
+
+    return func.combM(fp.combY_anon($f))
+}
