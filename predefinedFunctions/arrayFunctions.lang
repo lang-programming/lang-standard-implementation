@@ -1,7 +1,7 @@
 lang.version = v1.0.0
 lang.name = Lang Standard Implementation (Array Functions)
 
-function arrayFrom($iterable, $maxCount{number}) {
+function arrayFrom($iterable, $maxCount{number}):{ARRAY} {
     try {
         $iter = fn.iter($iterable)
 
@@ -18,8 +18,24 @@ function arrayFrom($iterable, $maxCount{number}) {
     }
 }
 
-function overload arrayFrom($iterable) {
+function overload arrayFrom($iterable):{ARRAY} {
     return func.arrayFrom($iterable, -1)
+}
+
+function arraySet(&array{ARRAY}, $index{number}, $value):{VOID} {
+    $index $= $LANG_TYPE_INT($index)
+
+    &array[$index] $= $value
+}
+
+function arrayGet(&array{ARRAY}, $index{number}) {
+    $index $= $LANG_TYPE_INT($index)
+
+    return parser.op(&array[$index])
+}
+
+function arrayLength(&array{ARRAY}):{INT} {
+    return parser.op(@&array)
 }
 
 function arrayPermutationsIterator(&array{ARRAY}, $r{number}):{OBJECT} {
