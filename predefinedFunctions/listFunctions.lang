@@ -1,0 +1,18 @@
+lang.version = v1.0.0
+lang.name = Lang Standard Implementation (List Functions)
+
+function listSet(&list{LIST}, $index{number}, $value):{VOID} {
+    $index $= $LANG_TYPE_INT($index)
+
+    &list[$index] $= $value
+}
+
+function listGet(&list{LIST}, $index{number}) {
+    $index $= $LANG_TYPE_INT($index)
+
+    return parser.op(&list[$index])
+}
+
+function listLength(&list{LIST}):{INT} {
+    return parser.op(@&list)
+}
